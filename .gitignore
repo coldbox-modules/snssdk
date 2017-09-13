@@ -1,0 +1,6 @@
+# apidocs
+apidocs/docbox
+apidocs/SNSSDK-APIDocs
+# testing
+testbox/*
+tests/specs/apikey.txt
