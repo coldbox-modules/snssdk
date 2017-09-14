@@ -29,6 +29,10 @@ This SDK will be installed into a directory called `snssdk` and then the SDK can
 <cfargument name="secretKey" 			required="true">
 <cfargument name="encryption_charset" 	required="false" default="utf-8">
 <cfargument name="ssl" 					required="false" default="false">
+<cfargument name="defaultRegionName		required="false" default="us-east-1",
+<cfargument name="defaultServiceName 	required="false" default="sns",
+<cfargument name="signatureAlgorithm 	required="false" default="AWS4-HMAC-SHA256",
+<cfargument name="hashAlorithm 			required="false" default="SHA256"
 ```
 
 ### ColdBox Module
@@ -45,6 +49,10 @@ snssdk = {
 	encryption_charset = "utf-8",
 	// SSL mode or not on cfhttp calls.
 	ssl = false
+	defaultRegionName = "us-east-1",
+	defaultServiceName = "sns",
+	signatureAlgorithm = "AWS4-HMAC-SHA256",
+	hashAlorithm = "SHA256"
 };
 ```
 
