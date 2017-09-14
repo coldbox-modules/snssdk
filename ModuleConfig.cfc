@@ -28,7 +28,11 @@ component {
 			accessKey = "",
 			secretKey = "",
 			encryption_charset = "utf-8",
-			ssl = false
+			ssl = false,
+			defaultRegionName = "us-east-1",
+			defaultServiceName = "sns",
+			signatureAlgorithm = "AWS4-HMAC-SHA256",
+			hashAlorithm = "SHA256"
 		};
 	}
 
@@ -46,7 +50,6 @@ component {
 			.initArg( name="secretKey", 			value=snsSettings.secretKey )
 			.initArg( name="encryption_charset", 	value=snsSettings.encryption_charset )
 			.initArg( name="ssl", 					value=snsSettings.ssl )
-			.initArg( name="URLEndPoint", 			value=snsSettings.URLEndPoint )
 			.initArg( name="defaultRegionName", 	value=snsSettings.defaultRegionName )
 			.initArg( name="defaultServiceName", 	value=snsSettings.defaultServiceName )
 			.initArg( name="encryption_charset", 	value=snsSettings.encryption_charset );
@@ -65,7 +68,7 @@ component {
 		var oConfig 		= controller.getSetting( "ColdBoxConfig" );
 		var configStruct 	= controller.getConfigSettings();
 		var snsDSL 			= oConfig.getPropertyMixin( "snssdk", "variables", structnew() );
-
+		
 		//defaults
 		configStruct.snssdk = variables.settings;
 

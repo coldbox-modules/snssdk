@@ -52,6 +52,11 @@ component singleton{
 	* @secretKey
 	* @encryption_charset
 	* @ssl
+	* @defaultRegionName
+	* @defaultServiceName
+	* @signatureAlgorithm
+	* @hashAlorithm
+	*
 	* @returnType AmazonSNS
 	*/
 	public function init( 
@@ -59,8 +64,8 @@ component singleton{
 		required secretKey,
 		encryption_charset="utf-8",
 		ssl=false,
-		string defaultRegionName = "",
-		string defaultServiceName = "",
+		string defaultRegionName = "us-east-1",
+		string defaultServiceName = "sns",
 		signatureAlgorithm = "AWS4-HMAC-SHA256",
 		hashAlorithm = "SHA256"
 		) {
@@ -69,10 +74,10 @@ component singleton{
 				variables[ thisKey ] = arguments[ thisKey ];
 			}
 
-			if( arguments.ssl ){
-				variables.URLEndPoint = "https://sns.us-east-1.amazonaws.com"; 
-			} else{ 
-				variables.URLEndPoint = "http://sns.us-east-1.amazonaws.com"; 
+			if( !isBoolean( arguments.ssl ) ){
+				variables.ssl = false; 
+			} else { 
+				variables.ssl = arguments.ssl; 
 			}
 
 			variables.defaultRegionName = arguments.defaultRegionName;
@@ -82,6 +87,7 @@ component singleton{
 			variables.signatureAlgorithm	= arguments.signatureAlgorithm;
 			variables.hashAlorithm 	 		= arguments.hashAlorithm;
 		
+			updateURLEndpoint();
 			return this;
 	}
 
@@ -94,16 +100,37 @@ component singleton{
 			variables.accessKey = arguments.accessKey;
 			variables.secretKey = arguments.secretKey;
 	}
-
+	
 	/**
 	* Set SSL flag and alter the internal URL End point pointer
 	* @useSSL Set to true or false
 	*/
     function setSSL( useSSL=true ){
-		if( arguments.useSSL ){
-			variables.URLEndPoint = "https://sns.us-east-1.amazonaws.com"; 
+    	if( isBoolean( arguments.useSSL ) ){
+    		variables.ssl = arguments.useSSL;	
+    	}
+    	updateURLEndpoint();
+	}
+
+	/**
+	* Set Region and alter the internal URL End point pointer
+	* @region Set to the name of the new Region
+	*/
+    function setRegion( region ){
+    	if( structKeyExists( arguments, "region" ) && len( arguments.region ) ){
+    		variables.defaultRegionName = arguments.region;	
+    	}
+		updateURLEndpoint();
+	}
+	
+	/**
+	* Using the service name, region, and ssl setting, update the URLEndPoint for the Service
+	*/
+	function updateURLEndpoint(){
+		if( variables.ssl ){
+			variables.URLEndPoint = "https://#variables.defaultServiceName#.#variables.defaultRegionName#.amazonaws.com"; 
 		} else{ 
-			variables.URLEndPoint = "http://sns.us-east-1.amazonaws.com"; 
+			variables.URLEndPoint = "http://#variables.defaultServiceName#.#variables.defaultRegionName#.amazonaws.com"; 
 		}
 	}
 	
@@ -230,7 +257,7 @@ component singleton{
 			//log.debug( "Prepared Signature: #signature#" );
 			//signature = createSignature( signature );
 		
-		var testData = generateSignatureData(
+		var signatureData = generateSignatureData(
 			requestMethod 		= "#arguments.method#"
 			,hostName			= "sns.us-east-1.amazonaws.com"
 			,requestURI			= "/"
@@ -244,7 +271,7 @@ component singleton{
 			,signedPayload		= true
 		);
 		//writeDump( arguments );
-		//writeDump( testData );
+		//writeDump( signatureData );
 
 		// REST CAll
 		http method="#arguments.method#"
@@ -255,7 +282,7 @@ component singleton{
 			
 			// Amazon Global Headers
 			httpparam type="header" name="Date" value="#timestamp#";
-			httpparam type="header" name="Authorization" value="#testData.AUTHORIZATIONHEADER#";
+			httpparam type="header" name="Authorization" value="#signatureData.AUTHORIZATIONHEADER#";
 			
 			// Headers
 			for( var param in arguments.headers ){
