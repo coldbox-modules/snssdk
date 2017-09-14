@@ -1,6 +1,6 @@
 {
     "name":"Amazon SNS SDK",
-    "version":"@version.number@+@build.number@",
+    "version":"0.0.2",
     "slug":"snssdk",
     "location":"http://downloads.ortussolutions.com/ortussolutions/snssdk/@version.number@/snssdk-@version.number@.zip",
     "author":"Ortus Solutions",
@@ -12,6 +12,7 @@
     },
     "bugs":"https://github.com/coldbox-modules/snssdk/issues",
     "shortDescription":"This SDK will provide you with Amazon SNS connectivity for any ColdFusion (CFML) application.",
+    "description":"This SDK will provide you with Amazon SNS connectivity for any ColdFusion (CFML) application.",
     "type":"modules",
     "license":[
         {
@@ -31,11 +32,12 @@
     "installPaths":{
         "testbox":"testbox"
     },
+    "scripts":{
+        
+    },
     "ignore":[
         "**/.*",
         "tests",
         "builds/**"
-    ],
-    "scripts" : {
-    }
+    ]
 }
