@@ -158,6 +158,50 @@ component singleton{
 		return results;
 	}	
 	
+	/**
+	* publishToTopic
+	* @arn
+	* @message
+	*/ 
+	function publishToTopic( required arn, required message ){
+		// Invoke call
+		var results = awsRequest(
+			parameters = {
+				"Action"		= "Publish",
+				"TopicArn" 	= arguments.arn,
+				"Message" 		= arguments.message
+			} 
+		);
+		// error
+		if( results.error ){
+			throw( message="Error making Amazon REST Call", detail=results.message );
+		}
+
+		return results;
+	}
+	
+	/**
+	* publishToTarget
+	* @arn
+	* @message
+	*/ 
+	function publishToTarget( required arn, required message ){
+		// Invoke call
+		var results = awsRequest(
+			parameters = {
+				"Action"		= "Publish",
+				"TargetArn" 	= arguments.arn,
+				"Message" 		= arguments.message
+			} 
+		);
+		// error
+		if( results.error ){
+			throw( message="Error making Amazon REST Call", detail=results.message );
+		}
+
+		return results;
+	}
+
 	function ListTopics(){
 		// Invoke call
 		var results = awsRequest(
@@ -656,7 +700,7 @@ component singleton{
 		}
 
 		// Encode path, but preserve slashes "/"
-		path = replace( urlEncode( path ), "%2F", "/", "all");
+		path = replace( urlEncode2( path ), "%2F", "/", "all");
 
 		return path;
 	}
@@ -794,7 +838,7 @@ component singleton{
 		// First encode parameter names and values 
 		var encodedParams = {};
 		structEach( arguments.queryParams, function(string key, string value) {
-			encodedParams[ urlEncode(arguments.key) ] = urlEncode( arguments.value );
+			encodedParams[ urlEncode2(arguments.key) ] = urlEncode2( arguments.value );
 		});	
 		return encodedParams;
 	}
@@ -870,7 +914,7 @@ component singleton{
 	 * @value string to encode
 	 * @returns URI encoded string
 	 */
-	private string function urlEncode( string value ) {
+	private string function urlEncode2( string value ) {
 		var encodedValue = encodeForURL(arguments.value);
 		// Reverse encoding of tilde "~"
 		encodedValue = replace( encodedValue, encodeForURL("~"), "~", "all" );
