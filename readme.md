@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/coldbox-modules/snssdk.svg?branch=master)](https://travis-ci.org/coldbox-modules/snssdk)
+[![Build Status](https://travis-ci.org/coldbox-modules/snssdk.svg?branch=development)](https://travis-ci.org/coldbox-modules/snssdk)
 
 # Welcome to the Amazon SNS SDK
 
@@ -9,9 +9,11 @@ This SDK allows you to add Amazon SNS capabilities to your ColdFusion (CFML) app
 * Source: https://github.com/coldbox-modules/snssdk
 * Issues: https://github.com/coldbox-modules/snssdk/issues
 * [Changelog](changelog.md)
+* API Docs: https://apidocs.ortussolutions.com/#/coldbox-modules/snssdk/
 * SNS API Reference: http://docs.aws.amazon.com/sns/latest/dg/welcome.html
 
 ## Installation 
+
 This SDK can be installed as standalone or as a ColdBox Module.  Either approach requires a simple CommandBox command:
 
 ```
@@ -22,9 +24,9 @@ Then follow either the standalone or module instructions below.
 
 ### Standalone
 
-This SDK will be installed into a directory called `snssdk` and then the SDK can be instantiated via ` new snssdk.AmazonSNS()` with the following constructor arguments:
+This SDK will be installed into a directory called `snssdk` and then the SDK can be instantiated via ` new snssdk.models.AmazonSNS()` with the following constructor arguments:
 
-```
+```html
 <cfargument name="accessKey" 			required="true">
 <cfargument name="secretKey" 			required="true">
 <cfargument name="encryption_charset" 	required="false" default="utf-8">
@@ -37,9 +39,9 @@ This SDK will be installed into a directory called `snssdk` and then the SDK can
 
 ### ColdBox Module
 
-This package also is a ColdBox module as well.  The module can be configured by creating an `snssdk` configuration structure in your application configuration file: `config/Coldbox.cfc` with the following settings:
+This package also is a ColdBox module as well.  The module can be configured by creating a `snssdk` structure in the `variables.moduleSettings` configuration area of your `config/ColdBox.cfc` with the following settings:
 
-```
+```js
 snssdk = {
 	// Your amazon access key
 	accessKey = "",
@@ -56,8 +58,8 @@ snssdk = {
 };
 ```
 
-Then you can leverage the SDK CFC via the injection DSL: `AmazonSNS@snssdk`
+Then you can leverage the SDK CFC via the WireBox ID: `AmazonSNS@snssdk`
 
 ## Usage
 
-Please check out the included API Docs to see all the methods available to you using our SNS SDK.
+Please check out the included API Docs to see all the methods available to you using our SNS SDK or visit them online at https://apidocs.ortussolutions.com/#/coldbox-modules/snssdk/
