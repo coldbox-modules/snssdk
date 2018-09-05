@@ -1,9 +1,9 @@
 {
     "name":"Amazon SNS SDK",
-    "version":"0.0.3",
+    "version":"@build.version@+@build.number@",
+    "location":"https://downloads.ortussolutions.com/ortussolutions/coldbox-modules/snssdk/@build.version@/snssdk-@build.version@.zip",
     "slug":"snssdk",
-    "location":"coldbox-modules/snssdk#v0.0.3",
-    "author":"Ortus Solutions",
+    "author":"Ortus Solutions, Corp",
     "homepage":"https://github.com/coldbox-modules/snssdk",
     "documentation":"https://github.com/coldbox-modules/snssdk",
     "repository":{
@@ -21,25 +21,21 @@
         }
     ],
     "contributors":[
-        
+
     ],
     "dependencies":{
-        
+
     },
     "devDependencies":{
-        "testbox":"^2.3.0+00044"
     },
     "installPaths":{
-        "testbox":"testbox"
     },
     "scripts":{
-        "postVersion":"package set location='coldbox-modules/snssdk#v`package version`'",
-        "onRelease":"publish",
-        "postPublish":"!git push && !git push --tags"
     },
     "ignore":[
         "**/.*",
-        "tests",
-        "builds/**"
+        "test-harness",
+		"*/.md",
+		"build/**"
     ]
 }

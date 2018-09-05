@@ -1,8 +1,14 @@
-# apidocs
-apidocs/docbox
-apidocs/SNSSDK-APIDocs
-# testing
-tests/specs/apikey.txt
-/testbox
-/tests/results
-/tests/resources/app/coldbox
+.vscode
+
+.artifacts/**
+.tmp/**
+
+test-harness/.engine/**
+test-harness/coldbox/**
+test-harness/docbox/**
+test-harness/testbox/**
+test-harness/logs/**
+test-harness/.env
+
+# log files
+logs/**
