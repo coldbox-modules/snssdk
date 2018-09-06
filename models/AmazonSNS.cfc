@@ -131,8 +131,6 @@ component accessors="true" singleton{
 		}
 	}
 
-//------------------------------------------- PUBLIC ------------------------------------------>
-
 	/**
 	* publishToPhone
 	* @phoneNumber
@@ -155,7 +153,7 @@ component accessors="true" singleton{
 		return results;
 	}
 
-	function ListTopics(){
+	function listTopics(){
 		// Invoke call
 		var results = awsRequest(
 			method	= "GET",
