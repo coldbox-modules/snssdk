@@ -647,7 +647,7 @@ component accessors="true" singleton{
 		}
 
 		// Encode path, but preserve slashes "/"
-		path = replace( urlEncode( path ), "%2F", "/", "all");
+		path = replace( snsUrlEncode( path ), "%2F", "/", "all");
 
 		return path;
 	}
@@ -785,7 +785,7 @@ component accessors="true" singleton{
 		// First encode parameter names and values
 		var encodedParams = {};
 		structEach( arguments.queryParams, function(string key, string value) {
-			encodedParams[ urlEncode(arguments.key) ] = urlEncode( arguments.value );
+			encodedParams[ snsUrlEncode(arguments.key) ] = snsUrlEncode( arguments.value );
 		});
 		return encodedParams;
 	}
@@ -861,7 +861,7 @@ component accessors="true" singleton{
 	 * @value string to encode
 	 * @returns URI encoded string
 	 */
-	private string function urlEncode( string value ) {
+	private string function snsUrlEncode( string value ) {
 		var encodedValue = encodeForURL(arguments.value);
 		// Reverse encoding of tilde "~"
 		encodedValue = replace( encodedValue, encodeForURL("~"), "~", "all" );
